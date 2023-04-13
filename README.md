@@ -20,4 +20,4 @@ We have a separation per year on the root followed by language and input files:
    - Makefile
 ```
 
-On the Makefile we expect at least a test task that will be called by CI.
+On the Makefile we expect at least `build` and `test` tasks that will be called by CI.
