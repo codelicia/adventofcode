@@ -1,0 +1,24 @@
+name: Kotlin
+
+on: [push]
+
+jobs:
+  build:
+    name: CI
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Kotlin
+      uses: shivammathur/setup-kotlin@v2
+
+    - name: Build
+      run: |
+        make --directory 2021/kotlin build
+        make --directory 2022/kotlin build
+
+    - name: Test
+      run: |
+        make --directory 2021/kotlin test
+        make --directory 2022/kotlin test

@@ -1,0 +1,26 @@
+name: Python
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Build
+      run: |
+        make --directory 2021/php build
+        make --directory 2022/php build
+
+    - name: Test
+      run: |
+        make --directory 2021/php test
+        make --directory 2022/php test
