@@ -1,6 +1,6 @@
 
 build:
-	echo "Building"
+	composer install
 
 test:
-	echo "Testing"
+	vendor/bin/phpunit
