@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Setup Kotlin
-      uses: shivammathur/setup-kotlin@v2
+      uses: fwilhe2/setup-kotlin@main
 
     - name: Build
       run: |
