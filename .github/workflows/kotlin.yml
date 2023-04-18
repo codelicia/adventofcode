@@ -1,24 +1,17 @@
-name: Kotlin
-
-on: [push]
-
+name: Build and Test
+on: [ push ]
 jobs:
-  build:
-    name: CI
+  build-test:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
-    - name: Setup Kotlin
-      uses: fwilhe2/setup-kotlin@main
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 17
 
-    - name: Build
-      run: |
-        make --directory 2021/kotlin build
-        make --directory 2022/kotlin build
-
-    - name: Test
-      run: |
-        make --directory 2021/kotlin test
-        make --directory 2022/kotlin test
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: wrapper
+          arguments: build test
+          build-root-directory: 2021/kotlin
