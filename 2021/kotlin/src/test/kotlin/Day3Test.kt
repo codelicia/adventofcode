@@ -15,7 +15,7 @@ class Day3Test {
     @Test
     fun part2() {
         assertEquals(230, Day3(SAMPLE_INPUT).part2())
-//        assertEquals(4118544, Day3(readInputAsList(3)).part1())
+        assertEquals(3832770, Day3(readInputAsList(3)).part2())
     }
 
     companion object {
