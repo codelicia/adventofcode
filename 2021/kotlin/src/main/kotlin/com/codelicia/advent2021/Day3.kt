@@ -61,18 +61,18 @@ class Day3(private val input: List<String>) {
 
         val l = buildSet { input.forEach(::add) }
 
-        val co3 = reduce(
+        val co2ScrubberRating = reduce(
             l.toMutableSet(),
             fun(v: String, n: Int, sl: List<SortedMap<Int, Int>>): Boolean =
                 v.getOrElse(n) { '0' }.digitToInt() == sl.get(0).invBit()
         )
 
-        val ox = reduce(
+        val oxygenGeneratorRating = reduce(
             l.toMutableSet(),
             fun(v: String, n: Int, sl: List<SortedMap<Int, Int>>): Boolean =
                 v.getOrElse(n) { '0' }.digitToInt() == sl.get(0).bit()
         )
 
-        return ox * co3
+        return oxygenGeneratorRating * co2ScrubberRating
     }
 }
