@@ -1,14 +1,20 @@
 package com.codelicia.advent2021
 
-import Util.readInputAsList
-import org.junit.jupiter.api.Test
+import Util.readInput
+import org.junit.jupiter.api.Test as Theory
 import kotlin.test.assertEquals
 
 class Day4Test {
 
-    @Test
+    @Theory
     fun part1() {
         assertEquals(4512, Day4(SAMPLE_INPUT).part1())
+        assertEquals(4512, Day4(readInput(4)).part1())
+    }
+
+    @Theory
+    fun `can win by marking a vertical row`() {
+        assertEquals(4220, Day4(SAMPLE_INPUT_VERTICAL_WIN).part1())
     }
 
     companion object {
@@ -32,6 +38,16 @@ class Day4Test {
             18  8 23 26 20
             22 11 13  6  5
             2  0 12  3  7
+        """
+
+        private const val SAMPLE_INPUT_VERTICAL_WIN = """
+            17,11,23,14,3,17,23,1,20
+
+            22 13 17 11  0
+            8  2 23  4 24
+            21  9 14 16  7
+            6 10  3 18  5
+            1 12 20 15 19
         """
     }
 }
