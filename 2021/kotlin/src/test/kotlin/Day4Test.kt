@@ -9,7 +9,7 @@ class Day4Test {
     @Theory
     fun part1() {
         assertEquals(4512, Day4(SAMPLE_INPUT).part1())
-        assertEquals(4512, Day4(readInput(4)).part1())
+        assertEquals(44088, Day4(readInput(4)).part1())
     }
 
     @Theory
