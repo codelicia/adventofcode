@@ -1,14 +1,14 @@
 package com.codelicia.advent2021
 
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Test as Theory
 import kotlin.test.assertSame
 
 class Day1Test {
 
-    @Test
+    @Theory
     fun part1() = assertSame(7, Day1(SAMPLE_INPUT).part1())
 
-    @Test
+    @Theory
     fun part2() = assertSame(5, Day1(SAMPLE_INPUT).part2())
 
     companion object {
