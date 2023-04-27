@@ -13,6 +13,12 @@ class Day4Test {
     }
 
     @Theory
+    fun part2() {
+        assertEquals(1924, Day4(SAMPLE_INPUT).part2())
+        assertEquals(23670, Day4(readInput(4)).part2())
+    }
+
+    @Theory
     fun `can win by marking a vertical row`() {
         assertEquals(4220, Day4(SAMPLE_INPUT_VERTICAL_WIN).part1())
     }
