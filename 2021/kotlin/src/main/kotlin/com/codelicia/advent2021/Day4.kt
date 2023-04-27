@@ -3,80 +3,40 @@ package com.codelicia.advent2021
 class Day4(input: String) {
     private val ON_COMMA = ","
     private val ON_NEW_LINE = "\n"
-    private val ON_SECTION = "\n\n"
+    private val IN_SECTION = "\n\n"
 
-    private val inputSections = input.split(ON_SECTION)
+    private val sections = input.split(IN_SECTION)
 
-    private val calledNumbers = inputSections[0].trim().split(ON_COMMA).map(String::toInt)
+    private val draws = sections[0].trim().split(ON_COMMA).map(String::toInt)
 
-    private var bingoCards = buildList<BingoCard> {
+    private var bingoCards : List<BingoCard> = buildList {
+        for (i in 1 until sections.size) {
+            val numbers = sections[i].split(ON_NEW_LINE).map { it.split(" ").filter(String::isNotBlank).map(String::toInt) }
 
-        for (i in 1 until inputSections.size) {
-            val numbers =
-                inputSections[i]
-                    .split(ON_NEW_LINE)
-                    .map {
-                        it.split(" ")
-                            .filter(String::isNotBlank)
-                            .map(String::toInt)
-                    }
-
-            val xs = numbers.map { row ->
-                row.map { number ->
-                    Pair(number, false)
-                }
-            }
-
-            add(BingoCard(xs))
+            add(BingoCard(numbers.map { row -> row.map { it to false } }))
         }
     }
 
-    class BingoCard(var numbers: List<List<Pair<Int, Boolean>>>) {
-
-        private fun hasNumber(number: Int): Boolean {
-            return numbers.flatten()
-                .map { it.first }
-                .contains(number)
-        }
+    class BingoCard(private var numbers: List<List<Pair<Int, Boolean>>>) {
 
         fun markNumber(number: Int) {
-
-            if (false == hasNumber(number)) {
-                return
-            }
-
             numbers = numbers.map {
                 it.map { pair ->
-                    if (pair.first == number) {
-                        Pair(pair.first, true)
-                    } else {
-                        pair
-                    }
+                    if (pair.first == number) pair.first to true else pair
                 }
             }
         }
 
-        fun score(): Int {
-            return numbers.flatten()
-                .filter { it.second == false }
-                .map { it.first }
-                .sum()
-        }
+        fun score(): Int = numbers.flatten().filter { !it.second }.sumOf { it.first }
 
         fun isBingo(): Boolean {
-            numbers.forEach { row ->
-                row.forEach { number ->
-                    if (row.filter { it.second == true }.count() == row.size) return true
-                }
-            }
+            val diagonal = List(numbers[0].size) { column -> List(numbers[0].size) { numbers[it][column] } }
+            val merge = numbers + diagonal
 
-            for (i in 0 until numbers[0].size) {
-                val column = mutableListOf<Pair<Int, Boolean>>()
-                for (j in 0 until numbers[0].size) {
-                    column.add(numbers[j][i])
+           merge.forEach { row ->
+                row.forEach { _ ->
+                    if (row.count { it.second } == row.size) return true
                 }
-
-                if (column.filter { it.second == true }.count() == numbers[0].size) return true
             }
 
             return false
@@ -85,26 +45,33 @@ class Day4(input: String) {
 
     fun part1(): Int {
 
-        calledNumbers.forEachIndexed { index, numberCalled ->
-            println("Round ${index}")
-            bingoCards.forEach { card ->
-                card.markNumber(numberCalled)
-            }
+        draws.forEach { numberCalled ->
+            bingoCards.forEach { it.markNumber(numberCalled) }
 
             val isBingo = bingoCards.filter { it.isBingo() }
 
-            if (isBingo.size > 0) {
-                println("Bingooo!!!!")
-                println("bingo.size = ${isBingo.size}")
-                println("bingo = ${isBingo[0].numbers}")
-                return isBingo[0].score() * numberCalled
+            if (isBingo.isNotEmpty()) return isBingo[0].score() * numberCalled
+        }
+
+        error("No bingo found")
+    }
+
+    fun part2(): Int {
+        val bingoHistoric = mutableSetOf<Pair<Int, Int>>()
+
+        draws.forEach { numberCalled ->
+            bingoCards.forEach { it.markNumber(numberCalled) }
+
+            val isBingo = bingoCards.filter { it.isBingo() }
+
+            isBingo.forEach { card ->
+                if (false == bingoHistoric.map { it.first }.contains(card.hashCode())) {
+                    bingoHistoric.add(card.hashCode() to numberCalled * card.score())
+                }
             }
         }
 
-        // @todo only for debugging
-        bingoCards.forEach { card ->
-            println(card.numbers)
-        }
-        return 1
+        // TODO: If we change `last()` to `first()` we can solve part 1 as well with the same logic
+        return bingoHistoric.last().second
     }
 }
