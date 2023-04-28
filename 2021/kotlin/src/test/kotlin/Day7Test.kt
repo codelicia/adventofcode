@@ -12,8 +12,14 @@ class Day7Test {
         assertEquals(331067, Day7(readInputAsIntList(7)).part1())
     }
 
+    @Theory
+    fun part2() {
+        assertEquals(168, Day7(SAMPLE_INPUT).part2())
+        assertEquals(92881128, Day7(readInputAsIntList(7)).part2())
+    }
+
     companion object {
-        private val SAMPLE_INPUT = listOf<Int>(
+        private val SAMPLE_INPUT = listOf(
             16,
             1,
             2,
