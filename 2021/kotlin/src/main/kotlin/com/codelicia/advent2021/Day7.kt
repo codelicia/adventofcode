@@ -1,7 +1,6 @@
 package com.codelicia.advent2021
 
 import kotlin.math.absoluteValue
-import kotlin.math.max
 import kotlin.math.min
 
 class Day7(private val crabs: List<Int>) {
@@ -10,11 +9,7 @@ class Day7(private val crabs: List<Int>) {
         var fuelConsumption = Int.MAX_VALUE
 
         for (horizontalPosition in crabs.min()..crabs.max()) {
-            val fuelConsumptionCalculation = crabs.sumOf { x -> (horizontalPosition - x).absoluteValue }
-
-            if (fuelConsumption > fuelConsumptionCalculation) {
-                fuelConsumption = fuelConsumptionCalculation
-            }
+            fuelConsumption = min(fuelConsumption, crabs.sumOf { x -> (horizontalPosition - x).absoluteValue })
         }
 
         return fuelConsumption
@@ -23,25 +18,16 @@ class Day7(private val crabs: List<Int>) {
     fun part2(): Int {
         var fuelConsumption = Int.MAX_VALUE
 
+        val memoization = HashMap<Int, Int>()
         for (horizontalPosition in 1..crabs.max()) {
-            val fuelConsumptionCalculation = crabs.map { x ->
-//                print("x: $x, horizontalPosition: $horizontalPosition")
-                var steps = 1..(x - horizontalPosition).absoluteValue
-                val m = steps.toMutableList()
-//                print(", steps: $steps")
-                val su = m.mapIndexed { index, i ->
-                    val previous = m.getOrElse(index - 1) { 0 }
-                    previous + 1
-//                    println(" - previous: $previous, i: $i")
-//                    previous + 1
-                }.sum()
-//                println(" - SUM: $su\n")
-                su
-            }.sum()
+            val previous = memoization.getOrElse(horizontalPosition - 1) { 0 }
+            memoization[horizontalPosition] = previous + 1
+        }
 
-            if (fuelConsumption > fuelConsumptionCalculation) {
-                fuelConsumption = fuelConsumptionCalculation
-            }
+        for (horizontalPosition in 1..crabs.max()) {
+            fuelConsumption = min(fuelConsumption, crabs.map { x ->
+                memoization.values.take((x - horizontalPosition).absoluteValue).sum()
+            }.sum())
         }
 
         return fuelConsumption
