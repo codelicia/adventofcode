@@ -1,6 +1,5 @@
 package com.codelicia.advent2021
 
-import Util.readInputAsIntList
 import Util.readInputAsList
 import kotlin.test.assertEquals
 import org.junit.jupiter.api.Test as Theory
@@ -11,6 +10,12 @@ class Day8Test {
     fun part1() {
         assertEquals(26, Day8(SAMPLE_INPUT).part1())
         assertEquals(456, Day8(readInputAsList(8)).part1())
+    }
+
+    @Theory
+    fun part2() {
+        assertEquals(61229, Day8(SAMPLE_INPUT).part2())
+        assertEquals(1091609, Day8(readInputAsList(8)).part2())
     }
 
     companion object {
