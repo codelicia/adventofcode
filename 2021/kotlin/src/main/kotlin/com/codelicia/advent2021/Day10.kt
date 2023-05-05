@@ -71,15 +71,11 @@ class Day10(private val input: List<String>) {
                 }
             }
 
-
             if (order.isNotEmpty() && error == false) {
-                var total = 0L
-                while (order.isNotEmpty()) {
-                    val el = order.removeLast()
-                    total *= 5
-                    total += scoreTableForIncomplete[el]!!
+                order.reversed().fold(0L) { acc, s ->
+                    (acc * 5) + scoreTableForIncomplete[s]!!
                 }
-                closing.add(total)
+                    .also { closing.add(it) }
             }
         }
         closing.sort()
