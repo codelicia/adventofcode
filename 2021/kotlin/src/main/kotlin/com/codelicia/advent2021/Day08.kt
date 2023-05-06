@@ -1,6 +1,6 @@
 package com.codelicia.advent2021
 
-class Day8(private val signals: List<String>) {
+class Day08(private val signals: List<String>) {
 
     data class SegmentMap(
         val map: Map<String, Int>,
@@ -20,22 +20,22 @@ class Day8(private val signals: List<String>) {
                 val fiveDigits = segmentSplit.filter { it.length == 5 }
 
                 // Easy discoverable
-                val one = segmentSplit.filter { it.length == 2 }[0]
-                val four = segmentSplit.filter { it.length == 4 }[0]
-                val seven = segmentSplit.filter { it.length == 3 }[0]
-                val eight = segmentSplit.filter { it.length == 7 }[0]
+                val one = segmentSplit.first { it.length == 2 }
+                val four = segmentSplit.first { it.length == 4 }
+                val seven = segmentSplit.first { it.length == 3 }
+                val eight = segmentSplit.first { it.length == 7 }
 
                 // Tricky
-                val nine = sixDigits.filter { it.split("").containsAll(four.split("")) }[0]
+                val nine = sixDigits.first { it.split("").containsAll(four.split("")) }
                 val zero = sixDigits.filter { !it.split("").containsAll(nine.split("")) }
-                    .filter { it.split("").containsAll(one.split("")) }[0]
+                    .first { it.split("").containsAll(one.split("")) }
                 val six = sixDigits.filter { !it.split("").containsAll(nine.split("")) }
-                    .filter { !it.split("").containsAll(one.split("")) }[0]
+                    .first { !it.split("").containsAll(one.split("")) }
 
-                val three = fiveDigits.filter { it.split("").containsAll(one.split("")) }[0]
-                val five = fiveDigits.filter { six.split("").containsAll(it.split("")) }[0]
+                val three = fiveDigits.first { it.split("").containsAll(one.split("")) }
+                val five = fiveDigits.first { six.split("").containsAll(it.split("")) }
                 val two = fiveDigits.filter { !it.split("").containsAll(three.split("")) }
-                    .filter { !it.split("").containsAll(five.split("")) }[0]
+                    .first { !it.split("").containsAll(five.split("")) }
 
                 val map = mutableMapOf<String, Int>()
                 map[zero.order()] = 0

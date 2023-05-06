@@ -6,7 +6,7 @@ import kotlin.math.min
 typealias Vent = Pair<Int, Int>
 typealias VentLine = Pair<Vent, Vent>
 
-class Day5(input: String) {
+class Day05(input: String) {
 
     private val vents: List<VentLine> = input.trimIndent()
         .lines()

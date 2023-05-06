@@ -4,23 +4,23 @@ import Util.readInput
 import org.junit.jupiter.api.Test as Theory
 import kotlin.test.assertEquals
 
-class Day4Test {
+class Day04Test {
 
     @Theory
     fun part1() {
-        assertEquals(4512, Day4(SAMPLE_INPUT).part1())
-        assertEquals(44088, Day4(readInput(4)).part1())
+        assertEquals(4512, Day04(SAMPLE_INPUT).part1())
+        assertEquals(44088, Day04(readInput(4)).part1())
     }
 
     @Theory
     fun part2() {
-        assertEquals(1924, Day4(SAMPLE_INPUT).part2())
-        assertEquals(23670, Day4(readInput(4)).part2())
+        assertEquals(1924, Day04(SAMPLE_INPUT).part2())
+        assertEquals(23670, Day04(readInput(4)).part2())
     }
 
     @Theory
     fun `can win by marking a vertical row`() {
-        assertEquals(4220, Day4(SAMPLE_INPUT_VERTICAL_WIN).part1())
+        assertEquals(4220, Day04(SAMPLE_INPUT_VERTICAL_WIN).part1())
     }
 
     companion object {

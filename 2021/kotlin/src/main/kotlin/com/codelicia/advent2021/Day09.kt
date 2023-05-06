@@ -2,7 +2,7 @@ package com.codelicia.advent2021
 
 import java.util.Stack
 
-class Day9(private val input: List<String>) {
+class Day09(private val input: List<String>) {
 
     private fun parseHeightmap(xs: List<String>): List<List<Int>> =
         xs.map { it.toCharArray().map(Char::digitToInt) }

@@ -4,20 +4,20 @@ import Util.readInput
 import org.junit.jupiter.api.Test as Theory
 import kotlin.test.assertEquals
 
-class Day5Test {
+class Day05Test {
 
     @Theory
     fun part1() {
-        assertEquals(5, Day5(SAMPLE_INPUT).part1())
-        assertEquals(5608, Day5(readInput(5)).part1())
+        assertEquals(5, Day05(SAMPLE_INPUT).part1())
+        assertEquals(5608, Day05(readInput(5)).part1())
     }
 
     @Theory
     fun part2() {
-        assertEquals(0, Day5("9,7 -> 7,9").part2())
-        assertEquals(0, Day5("1,1 -> 3,3").part2())
-        assertEquals(12, Day5(SAMPLE_INPUT).part2())
-        assertEquals(20299, Day5(readInput(5)).part2())
+        assertEquals(0, Day05("9,7 -> 7,9").part2())
+        assertEquals(0, Day05("1,1 -> 3,3").part2())
+        assertEquals(12, Day05(SAMPLE_INPUT).part2())
+        assertEquals(20299, Day05(readInput(5)).part2())
     }
 
     companion object {

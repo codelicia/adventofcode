@@ -2,7 +2,7 @@ package com.codelicia.advent2021
 
 import java.util.SortedMap
 
-class Day3(private val input: List<String>) {
+class Day03(private val input: List<String>) {
 
     private val forEachDigit = input.first().length
 

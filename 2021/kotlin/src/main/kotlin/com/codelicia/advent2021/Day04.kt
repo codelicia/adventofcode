@@ -1,6 +1,6 @@
 package com.codelicia.advent2021
 
-class Day4(input: String) {
+class Day04(input: String) {
     private val ON_COMMA = ","
     private val ON_NEW_LINE = "\n"
     private val IN_SECTION = "\n\n"

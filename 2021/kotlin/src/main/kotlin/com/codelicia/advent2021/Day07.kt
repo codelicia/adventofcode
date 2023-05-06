@@ -3,7 +3,7 @@ package com.codelicia.advent2021
 import kotlin.math.absoluteValue
 import kotlin.math.min
 
-class Day7(private val crabs: List<Int>) {
+class Day07(private val crabs: List<Int>) {
 
     fun part1(): Int {
         var fuelConsumption = Int.MAX_VALUE

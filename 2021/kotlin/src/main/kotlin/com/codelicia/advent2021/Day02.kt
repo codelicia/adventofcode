@@ -1,6 +1,6 @@
 package com.codelicia.advent2021
 
-class Day2(plannedCourse: List<String>) {
+class Day02(plannedCourse: List<String>) {
 
     private val submarine =
         plannedCourse

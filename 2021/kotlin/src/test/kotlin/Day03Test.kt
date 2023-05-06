@@ -4,18 +4,18 @@ import Util.readInputAsList
 import org.junit.jupiter.api.Test as Theory
 import kotlin.test.assertEquals
 
-class Day3Test {
+class Day03Test {
 
     @Theory
     fun part1() {
-        assertEquals(198, Day3(SAMPLE_INPUT).part1())
-        assertEquals(4118544, Day3(readInputAsList(3)).part1())
+        assertEquals(198, Day03(SAMPLE_INPUT).part1())
+        assertEquals(4118544, Day03(readInputAsList(3)).part1())
     }
 
     @Theory
     fun part2() {
-        assertEquals(230, Day3(SAMPLE_INPUT).part2())
-        assertEquals(3832770, Day3(readInputAsList(3)).part2())
+        assertEquals(230, Day03(SAMPLE_INPUT).part2())
+        assertEquals(3832770, Day03(readInputAsList(3)).part2())
     }
 
     companion object {

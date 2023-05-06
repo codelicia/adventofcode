@@ -1,6 +1,6 @@
 package com.codelicia.advent2021
 
-class Day1(private val sonarReport: List<Int>) {
+class Day01(private val sonarReport: List<Int>) {
 
     fun part1(): Int =
         sonarReport
