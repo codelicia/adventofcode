@@ -12,6 +12,12 @@ class Day11Test {
         assertEquals(1735, Day11(readInputAsList(11)).part1(steps = 100))
     }
 
+    @Theory
+    fun part2() {
+        assertEquals(195, Day11(SAMPLE_INPUT).part2())
+        assertEquals(400, Day11(readInputAsList(11)).part2())
+    }
+
     companion object {
         private val SAMPLE_INPUT = listOf(
            "5483143223",
