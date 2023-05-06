@@ -12,16 +12,10 @@ class Day02(plannedCourse: List<String>) {
     private fun List<Pair<String, Int>>.sumOfCoordinate(coordinate: String): Int =
         this.filter { it.first == coordinate }.sumOf { it.second }
 
-    fun part1(): Int {
-
-        val depth =
-            submarine.sumOfCoordinate("down")
-                .minus(submarine.sumOfCoordinate("up"))
-
-        val horizontal = submarine.sumOfCoordinate("forward")
-
-        return depth * horizontal
-    }
+    fun part1(): Int =
+        submarine.sumOfCoordinate("down")
+            .minus(submarine.sumOfCoordinate("up"))
+            .times(submarine.sumOfCoordinate("forward"))
 
     fun part2(): Int {
 
