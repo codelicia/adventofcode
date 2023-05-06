@@ -74,7 +74,7 @@ class Day09(private val input: List<String>) {
         for (adjacent in p.adjacentLocations()) {
             val adjacentCell = heightmap.getLocation(adjacent)
             if (adjacentCell != null && adjacentCell > cell && adjacentCell != 9 && false == visited.contains(adjacent)) {
-                val x = findSmallerFrom(heightmap, adjacent, visited);
+                val x = findSmallerFrom(heightmap, adjacent, visited)
                 if (x != null) {
                     lowPoints.addAll(x)
                 }
