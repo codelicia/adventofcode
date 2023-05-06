@@ -15,13 +15,13 @@ class Day11(private val input: List<String>) {
 
             grid.forEachIndexed { y, line ->
                 line.forEachIndexed { x, value ->
-                    val next = value + 1
-                    grid[y][x] = if (next > 9) {
+                    val next = (value + 1) % 10
+                    grid[y][x] = next
+                    if (next == 0) {
                         notifyNeighbors.add(y to x)
                         blocked.add(y to x)
                         totalFlashes++
-                        0
-                    } else next
+                    }
                 }
             }
 
@@ -38,17 +38,17 @@ class Day11(private val input: List<String>) {
                     y + 1 to x - 1,
                     y - 1 to x + 1,
                 )) {
-                    if (grid.getOrNull(neighbor.first)?.getOrNull(neighbor.second) == null || true == blocked.contains(neighbor)) {
-                        continue
-                    }
+                    if (true == blocked.contains(neighbor)) continue
+                    if (grid.getOrNull(neighbor.first)?.getOrNull(neighbor.second) == null) continue
 
-                    val value = grid[neighbor.first][neighbor.second] + 1
-                    grid[neighbor.first][neighbor.second] = if (value > 9) {
+                    val next = (grid[neighbor.first][neighbor.second] + 1) % 10
+                    grid[neighbor.first][neighbor.second] = next
+
+                    if (next == 0) {
                         notifyNeighbors.add(neighbor)
                         blocked.add(neighbor)
                         totalFlashes++
-                        0
-                    } else value
+                    }
                 }
             }
         }
