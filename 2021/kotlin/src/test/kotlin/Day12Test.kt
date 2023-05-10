@@ -14,6 +14,14 @@ class Day12Test {
         assertEquals(5254, Day12(readInputAsList(12)).part1())
     }
 
+    @Theory
+    fun part2() {
+        assertEquals(36, Day12(SAMPLE_INPUT).part2())
+        assertEquals(103, Day12(LARGER_SAMPLE_INPUT).part2())
+        assertEquals(3509, Day12(EVEN_LARGER_SAMPLE_INPUT).part2())
+        assertEquals(149385, Day12(readInputAsList(12)).part2())
+    }
+
     companion object {
         private val SAMPLE_INPUT = listOf(
             "start-A",
@@ -39,24 +47,24 @@ class Day12Test {
         )
 
         private val EVEN_LARGER_SAMPLE_INPUT = listOf(
-           "fs-end",
-           "he-DX",
-           "fs-he",
-           "start-DX",
-           "pj-DX",
-           "end-zg",
-           "zg-sl",
-           "zg-pj",
-           "pj-he",
-           "RW-he",
-           "fs-DX",
-           "pj-RW",
-           "zg-RW",
-           "start-pj",
-           "he-WI",
-           "zg-he",
-           "pj-fs",
-           "start-RW",
+            "fs-end",
+            "he-DX",
+            "fs-he",
+            "start-DX",
+            "pj-DX",
+            "end-zg",
+            "zg-sl",
+            "zg-pj",
+            "pj-he",
+            "RW-he",
+            "fs-DX",
+            "pj-RW",
+            "zg-RW",
+            "start-pj",
+            "he-WI",
+            "zg-he",
+            "pj-fs",
+            "start-RW",
         )
     }
 }
