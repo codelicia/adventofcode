@@ -8,7 +8,7 @@ class Day11(private val input: List<String>) {
 
     private fun solve(steps: Int = 10): Pair<Int, Int> {
         val grid = input.map { line ->
-                line.split("").filterNot(String::isBlank).map(String::toInt).toMutableList()
+                line.toCharArray().map(Char::digitToInt).toMutableList()
             }.toMutableList()
 
         var totalFlashes = 0
