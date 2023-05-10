@@ -11,7 +11,7 @@ class Day12Test {
         assertEquals(10, Day12(SAMPLE_INPUT).part1())
         assertEquals(19, Day12(LARGER_SAMPLE_INPUT).part1())
         assertEquals(226, Day12(EVEN_LARGER_SAMPLE_INPUT).part1())
-        assertEquals(1735, Day12(readInputAsList(12)).part1())
+        assertEquals(5254, Day12(readInputAsList(12)).part1())
     }
 
     companion object {

@@ -2,9 +2,9 @@ package com.codelicia.advent2021
 
 import java.util.Stack
 
-class Day12(private val mapOfTheRemainingCaves: List<String>) {
+class Day12(mapOfTheRemainingCaves: List<String>) {
 
-    data class Vertex(public val label: String)
+    data class Vertex(val label: String)
 
     private val graph: MutableMap<Vertex, MutableList<Vertex>> = mutableMapOf()
 
@@ -16,12 +16,12 @@ class Day12(private val mapOfTheRemainingCaves: List<String>) {
     fun part1(): Int {
         // Build cave connections
         for (i in map) {
-            if (graph.get(Vertex(i.first)) == null)
+            if (graph[Vertex(i.first)] == null)
                 graph.putIfAbsent(Vertex(i.first), mutableListOf(Vertex(i.second)))
             else
                 graph[Vertex(i.first)]?.add(Vertex(i.second))
 
-            if (graph.get(Vertex(i.second)) == null)
+            if (graph[Vertex(i.second)] == null)
                 graph.putIfAbsent(Vertex(i.second), mutableListOf(Vertex(i.first)))
             else
                 graph[Vertex(i.second)]?.add(Vertex(i.first))
@@ -38,7 +38,7 @@ class Day12(private val mapOfTheRemainingCaves: List<String>) {
         return results.size
     }
 
-    fun go(
+    private fun go(
         graph: MutableMap<Vertex, MutableList<Vertex>>,
         queue: Stack<Vertex>,
         results: MutableList<String>,
@@ -53,7 +53,7 @@ class Day12(private val mapOfTheRemainingCaves: List<String>) {
 
         visited.add(v.label)
 
-        val vertices = graph.get(v)!!
+        val vertices = graph[v]!!
         for (i in vertices) {
             if (i.label != "start") {
                 if (i.label.lowercase() == i.label && visited.contains(i.label)) continue
