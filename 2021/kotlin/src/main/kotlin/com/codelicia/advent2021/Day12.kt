@@ -6,49 +6,35 @@ class Day12(mapOfTheRemainingCaves: List<String>) {
 
     data class Vertex(val label: String)
 
-    // @TODO: Maybe build the tree here already?
     private val map = mapOfTheRemainingCaves
-        .map { it.split("-") }
-        .map { it[0] to it[1] }
+        .map { cave -> cave.split("-") }
+        .map { cave -> cave.first() to cave.last() }
 
     private val graph = buildMap<Vertex, MutableList<Vertex>> {
         for (i in map) {
-            if (this[Vertex(i.first)] == null)
-                this.putIfAbsent(Vertex(i.first), mutableListOf(Vertex(i.second)))
-            else
-                this[Vertex(i.first)]?.add(Vertex(i.second))
-
-            if (this[Vertex(i.second)] == null)
-                this.putIfAbsent(Vertex(i.second), mutableListOf(Vertex(i.first)))
-            else
-                this[Vertex(i.second)]?.add(Vertex(i.first))
+            this.putIfAbsent(Vertex(i.first), mutableListOf())
+            this.putIfAbsent(Vertex(i.second), mutableListOf())
+            this[Vertex(i.first)]!!.add(Vertex(i.second))
+            this[Vertex(i.second)]!!.add(Vertex(i.first))
         }
     }
 
-    fun part1(): Int {
-        val queue = Stack<Vertex>()
-        queue.add(Vertex("start"))
-        val visited = hashMapOf<String, Int>()
-
-        val results = mutableListOf<String>()
-        while (queue.isNotEmpty()) {
-            bfs(graph, fun(_: HashMap<String, Int>): Boolean = true, queue, results, "start", visited)
-        }
-        return results.size
-    }
+    fun part1(): Int = solve(fun(_) = true)
 
     fun part2(): Int {
+        return solve(fun(visited: HashMap<String, Int>): Boolean {
+            return visited.toMap().filter { it.value > 1 }.filter { it.key.lowercase() == it.key }.values.isNotEmpty()
+        })
+    }
+
+    private fun solve(predicate: (HashMap<String, Int>) -> Boolean): Int {
         val queue = Stack<Vertex>()
         queue.add(Vertex("start"))
-        val visited = hashMapOf<String, Int>()
 
         val results = mutableListOf<String>()
-        val predicate = fun(visited: HashMap<String, Int>): Boolean {
-            return visited.toMap().filter { it.value > 1 }.filter { it.key.lowercase() == it.key }.values.isNotEmpty()
-        }
-        while (queue.isNotEmpty()) {
-            bfs(graph, predicate, queue, results, "start", visited)
-        }
+
+        while (queue.isNotEmpty()) bfs(graph, predicate, queue, results, "start")
+
         return results.size
     }
 
@@ -57,27 +43,27 @@ class Day12(mapOfTheRemainingCaves: List<String>) {
         predicate: (HashMap<String, Int>) -> Boolean,
         queue: Stack<Vertex>,
         results: MutableList<String>,
-        result: String,
-        visited: HashMap<String, Int>
+        path: String,
+        visited: HashMap<String, Int> = hashMapOf()
     ) {
-        val v = queue.pop()
-        if (v.label == "end") {
-            results.add(result)
+        val vertex = queue.pop()
+        if (vertex.label == "end") {
+            results.add(path)
             return
         }
 
-        val x = visited.getOrElse(v.label) { 0 }
-        visited[v.label] = x + 1
+        val count = visited.getOrElse(vertex.label) { 0 }
+        visited[vertex.label] = count + 1
 
-        val vertices = graph[v]!!
-        for (i in vertices) {
-            if (i.label != "start") {
+        val neighbours = graph[vertex]!!
+        for (neighbour in neighbours) {
+            if (neighbour.label != "start") {
                 val satisfiesPredicate = predicate(visited)
 
-                if (i.label.lowercase() == i.label && visited.contains(i.label) && satisfiesPredicate == true) continue
+                if (neighbour.label.lowercase() == neighbour.label && visited.contains(neighbour.label) && satisfiesPredicate == true) continue
 
-                queue.add(i)
-                bfs(graph, predicate, queue, results, "$result,${i.label}", HashMap(visited))
+                queue.add(neighbour)
+                bfs(graph, predicate, queue, results, "$path,${neighbour.label}", HashMap(visited))
             }
         }
     }
