@@ -51,7 +51,7 @@ class Day03(private val input: List<String>) {
 
         val sl = s.rank(n)
 
-        s.toList().forEach { v -> if (predicate(v, n, sl)) s.remove(v) }
+        s.removeIf { v -> predicate(v, n, sl) }
 
         return calculateRating(s, predicate, n + 1)
     }
