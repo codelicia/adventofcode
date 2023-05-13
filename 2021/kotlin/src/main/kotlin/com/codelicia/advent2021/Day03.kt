@@ -1,7 +1,6 @@
 package com.codelicia.advent2021
 
 import java.util.SortedMap
-import kotlin.math.absoluteValue
 
 class Day03(private val input: List<String>) {
 
@@ -20,7 +19,7 @@ class Day03(private val input: List<String>) {
     private fun SortedMap<Int, Int>.invBit(): Int =
         if (this.getValue(0) > this.getValue(1)) 1 else 0
 
-    private fun MutableSet<String>.rank(n: Int): List<SortedMap<Int, Int>> =
+    private fun Set<String>.countBits(n: Int): List<SortedMap<Int, Int>> =
         listOf(
             this.map { v -> v[n].digitToInt() }
                 .groupingBy { it }
@@ -43,32 +42,32 @@ class Day03(private val input: List<String>) {
     private fun invertBit(n: Int) = if (n == 1) 0 else 1
 
     private fun calculateRating(
-        s: MutableSet<String>,
+        remainingNumbers: Set<String>,
         predicate: (String, Int, List<SortedMap<Int, Int>>) -> Boolean,
-        n: Int = 0,
+        index: Int = 0,
     ): Int {
-        if (s.count() == 1) return s.first().toInt(radix = 2)
+        if (remainingNumbers.count() == 1) return remainingNumbers.first().toInt(radix = 2)
 
-        val sl = s.rank(n)
+        val sortedList = remainingNumbers.countBits(index)
 
-        s.removeIf { v -> predicate(v, n, sl) }
+        val filteredNumbers = remainingNumbers.filterNot { v -> predicate(v, index, sortedList) }.toSet()
 
-        return calculateRating(s, predicate, n + 1)
+        return calculateRating(filteredNumbers, predicate, index + 1)
     }
 
     fun part1(): Int = diagnosticReport.gamma() * diagnosticReport.epsilon()
 
     fun part2(): Int {
 
-        val binaryNumbers = buildSet { input.forEach(::add) }
+        val binaryNumbers = input.toSet()
 
         val co2ScrubberRating = calculateRating(
-            binaryNumbers.toMutableSet(),
+            binaryNumbers,
             { v, n, sl -> v[n].digitToInt() == sl[0].invBit() }
         )
 
         val oxygenGeneratorRating = calculateRating(
-            binaryNumbers.toMutableSet(),
+            binaryNumbers,
             { v, n, sl -> v[n].digitToInt() == sl[0].bit() }
         )
 
