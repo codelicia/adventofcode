@@ -1,17 +1,18 @@
 package com.codelicia.advent2021
 
 import java.util.SortedMap
+import kotlin.math.absoluteValue
 
 class Day03(private val input: List<String>) {
 
-    private val forEachDigit = input.first().length
+    private val bitLength = input.first().length
 
     private fun List<Int>.toInt() =
         this.joinToString("").toInt(2)
 
     private fun List<Int>.gamma() = this.toInt()
 
-    private fun List<Int>.epsilon() = this.map(::invert).toInt()
+    private fun List<Int>.epsilon() = this.map(::invertBit).toInt()
 
     private fun SortedMap<Int, Int>.bit(): Int =
         if (this.getValue(0) > this.getValue(1)) 0 else 1
@@ -28,20 +29,20 @@ class Day03(private val input: List<String>) {
         )
 
     private val diagnosticReport = buildList {
-        repeat(forEachDigit) { i ->
-            val ofBit = input
+        repeat(bitLength) { i ->
+            val mostCommonBit = input
                 .groupingBy { it[i].digitToInt() }
                 .eachCount()
-                .maxBy { s -> s.value }
+                .maxBy { it.value }
                 .key
 
-            add(ofBit)
+            add(mostCommonBit)
         }
     }
 
-    private fun invert(n: Int) = if (n == 1) 0 else 1
+    private fun invertBit(n: Int) = if (n == 1) 0 else 1
 
-    private fun reduce(
+    private fun calculateRating(
         s: MutableSet<String>,
         predicate: (String, Int, List<SortedMap<Int, Int>>) -> Boolean,
         n: Int = 0,
@@ -52,25 +53,23 @@ class Day03(private val input: List<String>) {
 
         s.toList().forEach { v -> if (predicate(v, n, sl)) s.remove(v) }
 
-        return reduce(s, predicate, n + 1)
+        return calculateRating(s, predicate, n + 1)
     }
 
     fun part1(): Int = diagnosticReport.gamma() * diagnosticReport.epsilon()
 
     fun part2(): Int {
 
-        val l = buildSet { input.forEach(::add) }
+        val binaryNumbers = buildSet { input.forEach(::add) }
 
-        val co2ScrubberRating = reduce(
-            l.toMutableSet(),
-            fun(v: String, n: Int, sl: List<SortedMap<Int, Int>>): Boolean =
-                v.getOrElse(n) { '0' }.digitToInt() == sl.get(0).invBit()
+        val co2ScrubberRating = calculateRating(
+            binaryNumbers.toMutableSet(),
+            { v, n, sl -> v[n].digitToInt() == sl[0].invBit() }
         )
 
-        val oxygenGeneratorRating = reduce(
-            l.toMutableSet(),
-            fun(v: String, n: Int, sl: List<SortedMap<Int, Int>>): Boolean =
-                v.getOrElse(n) { '0' }.digitToInt() == sl.get(0).bit()
+        val oxygenGeneratorRating = calculateRating(
+            binaryNumbers.toMutableSet(),
+            { v, n, sl -> v[n].digitToInt() == sl[0].bit() }
         )
 
         return oxygenGeneratorRating * co2ScrubberRating
