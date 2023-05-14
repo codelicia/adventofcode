@@ -5,15 +5,10 @@ import kotlin.math.min
 
 class Day07(private val crabs: List<Int>) {
 
-    fun part1(): Int {
-        var fuelConsumption = Int.MAX_VALUE
+    private fun List<Int>.range() = this.min()..this.max()
 
-        for (horizontalPosition in crabs.min()..crabs.max()) {
-            fuelConsumption = min(fuelConsumption, crabs.sumOf { x -> (horizontalPosition - x).absoluteValue })
-        }
-
-        return fuelConsumption
-    }
+    fun part1(): Int = crabs.range()
+        .minOfOrNull { position -> crabs.sumOf { crab -> (position - crab).absoluteValue } }!!
 
     fun part2(): Int {
         var fuelConsumption = Int.MAX_VALUE
