@@ -10,14 +10,10 @@ class Day14(val input: String) {
 
         var count = mutableMapOf<String, Long>()
 
-        for (index in polymerTemplate.indices) {
-            // @todo fix issue with the last digit since `*.indices` -1 didn't work
-            if (0 == polymerTemplate.getOrElse(index + 1) { 0 }) {
-                continue
-            }
+        for (index in 0 until polymerTemplate.indices.last) {
             val x = polymerTemplate[index] + polymerTemplate[index + 1]
             count.putIfAbsent(x, 0)
-            count[x] = count[x]!! + 1;
+            count[x] = count[x]!! + 1
         }
 
         repeat(times) {
