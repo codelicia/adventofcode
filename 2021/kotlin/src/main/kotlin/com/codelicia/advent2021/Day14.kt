@@ -6,7 +6,14 @@ class Day14(val input: String) {
 
         // Mount hashMap with values
         val hashMap = HashMap<String, String>()
-        input.split("\n\n").drop(1).first().split("\n").map { it.split(" -> ") }.map { hashMap[it.first()] = it.last() }
+            .apply {
+                input.split("\n\n")
+                    .drop(1)
+                    .first()
+                    .split("\n")
+                    .map { it.split(" -> ") }
+                    .forEach { set(it.first(), it.last()) }
+            }
 
         var count = mutableMapOf<String, Long>()
 
@@ -37,7 +44,6 @@ class Day14(val input: String) {
             c2[x] = c2[x]!! + index.value
         }
 
-        // Add the last char otherwise we will be off by one
         // Bene nota: the last char never changes
         c2[polymerTemplate.last()] = c2[polymerTemplate.last()]!! + 1
 
