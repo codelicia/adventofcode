@@ -10,7 +10,7 @@ class Day15(val input: String) {
     private val R = G.lastIndex
     private val C = G.last().lastIndex
 
-    fun solve(): Int = minimumPath(0 to 0, mutableMapOf<Pair<Int, Int>, Int>()) - G[0][0]
+    fun solve(): Int = minimumPath(0 to 0, mutableMapOf()) - G[0][0]
 
     private fun minimumPath(
         cur: Pair<Int, Int>,
