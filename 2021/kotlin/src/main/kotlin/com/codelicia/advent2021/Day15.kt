@@ -84,37 +84,24 @@ class Day15(val input: String) {
 
     fun Int.inc(i: Int): Int = if (this + i > 9) (this + i) % 9 else this+i
 
-    private fun Int.incDiv(): Int = this.inc(1)
-
     fun enlargeMap(): String {
         // pad right
         var s : String = ""
         for (i in 0..maxRow) {
-            repeat(5) { repeatIdx ->
-                s += grid[i].map { it.inc(repeatIdx) }.joinToString("")
+            repeat(5) {
+                repeatIdx -> s += grid[i].map { it.inc(repeatIdx) }.joinToString("")
             }
             s += "\n"
         }
-        var t = ""
-
-        var temp = ""
 
         // pad bottom
         repeat(4) { rp ->
-            var paddedGrid = s.split("\n").map { it ->
-                it.toCharArray().map { it.digitToInt() }
-            }
+            var paddedGrid = s.split("\n").map { it -> it.toCharArray().map { it.digitToInt() } }
 
-            t = ""
             for (i in 0..maxRow) {
-                t += paddedGrid[i].map { it.inc(rp+1) }.joinToString("")
-                t += "\n"
+                s += paddedGrid[i].map { it.inc(rp+1) }.joinToString("") + "\n"
             }
-
-            temp += t
         }
-
-        s += temp
 
         return s.trim()
     }
