@@ -10,9 +10,7 @@ class Node(val cost: Int, val x: Int, val y: Int) : Comparable<Node> {
         return 0
     }
 
-    override fun toString(): String {
-        return "Node(cost=$cost, x=$x, y=$y)"
-    }
+    override fun toString(): String = "Node(cost=$cost, x=$x, y=$y)"
 }
 
 class Day15(val input: String) {
@@ -32,35 +30,6 @@ class Day15(val input: String) {
     // Get the maximum row and column indices of the grid
     private val maxRow = grid.lastIndex
     private val maxColumn = grid.last().lastIndex
-
-    // Find the minimum path sum from the top-left corner to the bottom-right corner of the grid
-    fun solve(): Int = minimumPath(0 to 0, mutableMapOf()) - enlargedGrid[0][0]
-
-    // Solving it the recursive way
-    // Recursive function to find the minimum path sum from a given cell to the bottom-right corner of the grid
-    private fun minimumPath(
-        cur: Pair<Int, Int>, // Current cell coordinates
-        dp: MutableMap<Pair<Int, Int>, Int>, // Memoization map to store previously computed results
-    ): Int {
-        val (r, c) = cur
-
-        // If the result for the current cell has already been computed, return it
-        if (cur in dp) return dp[cur]!!
-
-        // If the current cell is out of bounds, return a large value to indicate that it is not a valid path
-        if (r<0 || r>enlargedMaxRow || c<0 || c>enlargedMaxColumn) return 1e9.toInt()
-
-        // If the current cell is the bottom-right corner, return its value
-        if (r==enlargedMaxRow && c==enlargedMaxColumn) return enlargedGrid[r][c]
-
-        // Compute the minimum path sum from the current cell to the bottom-right corner by recursively computing
-        // the minimum path sum from the cell below and the cell to the right, and adding the current cell's value
-        val ans = enlargedGrid[r][c] + min(minimumPath(r+1 to c, dp), minimumPath(r to c+1, dp))
-
-        // Store the result in the memoization map and return it
-        dp[cur] = ans
-        return ans
-    }
 
     // Solving it the non-recursive way
     fun part1(): Int {
