@@ -19,27 +19,13 @@ class Day15(val input: String) {
         it.toCharArray().map { it.digitToInt() }
     }
 
-    private val enlargedGrid = enlargeMap().split("\n").map { it ->
-        it.toCharArray().map { it.digitToInt() }
-    }
-
-    // Get the maximum row and column indices of the grid
-    private val enlargedMaxRow = enlargedGrid.lastIndex
-    private val enlargedMaxColumn = enlargedGrid.last().lastIndex
-
-    // Get the maximum row and column indices of the grid
     private val maxRow = grid.lastIndex
     private val maxColumn = grid.last().lastIndex
 
-    // Solving it the non-recursive way
     fun part1(): Int {
-        // I still don't know for sure what Dynamic Programming is about dough...
         val dp = Array(maxRow + 1) { IntArray(maxColumn + 1) { Int.MAX_VALUE } }
         dp[0][0] = 0
 
-        // The time complexity of this code is O(n^2), where n is the size of the grid.
-        // The space complexity is also O(n^2), since we are using a 2D array to store
-        // the minimum path sum for each cell.
         for (i in 0..maxRow) {
             for (j in 0..maxColumn) {
                 if (i > 0) dp[i][j] = min(dp[i][j], dp[i - 1][j] + grid[i][j])
