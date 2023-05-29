@@ -3,16 +3,6 @@ package com.codelicia.advent2021
 import java.util.*
 import kotlin.math.min
 
-class Node(val cost: Int, val x: Int, val y: Int) : Comparable<Node> {
-    override fun compareTo(other: Node): Int {
-        if (other.cost > cost) return -1
-        if (other.cost < cost) return 1
-        return 0
-    }
-
-    override fun toString(): String = "Node(cost=$cost, x=$x, y=$y)"
-}
-
 class Day15(val input: String) {
     // Split the input string into a 2D grid of integers
     private val grid = input.split("\n").map { it ->
@@ -90,5 +80,15 @@ class Day15(val input: String) {
         }
 
         return s.trim()
+    }
+
+    private class Node(val cost: Int, val x: Int, val y: Int) : Comparable<Node> {
+        override fun compareTo(other: Node): Int {
+            if (other.cost > cost) return -1
+            if (other.cost < cost) return 1
+            return 0
+        }
+
+        override fun toString(): String = "Node(cost=$cost, x=$x, y=$y)"
     }
 }
