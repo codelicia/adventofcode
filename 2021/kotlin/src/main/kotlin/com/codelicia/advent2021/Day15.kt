@@ -83,12 +83,6 @@ class Day15(val input: String) {
     }
 
     private class Node(val cost: Int, val x: Int, val y: Int) : Comparable<Node> {
-        override fun compareTo(other: Node): Int {
-            if (other.cost > cost) return -1
-            if (other.cost < cost) return 1
-            return 0
-        }
-
-        override fun toString(): String = "Node(cost=$cost, x=$x, y=$y)"
+        override fun compareTo(other: Node): Int = cost.compareTo(other.cost)
     }
 }
