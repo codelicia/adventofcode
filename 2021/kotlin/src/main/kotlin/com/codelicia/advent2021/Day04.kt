@@ -43,7 +43,7 @@ class Day04(input: String) {
     }
 
     private fun cardsScore(): MutableSet<Pair<Int, Int>> {
-        val winningCards = mutableSetOf<Pair<Int, Int>>()
+        val cardsInBingoOrder = mutableSetOf<Pair<Int, Int>>()
 
         draws.forEach { numberCalled ->
             cards.forEach { it.mark(numberCalled) }
@@ -51,12 +51,12 @@ class Day04(input: String) {
             val isBingo = cards.filter { it.hasBingo() }
 
             isBingo.forEach { card ->
-                if (false == winningCards.map { it.first }.contains(card.hashCode())) {
-                    winningCards.add(card.hashCode() to numberCalled * card.unmarkedSum())
+                if (false == cardsInBingoOrder.map { it.first }.contains(card.hashCode())) {
+                    cardsInBingoOrder.add(card.hashCode() to numberCalled * card.unmarkedSum())
                 }
             }
         }
-        return winningCards
+        return cardsInBingoOrder
     }
 
     fun part1(): Int = cardsScore().first().second
