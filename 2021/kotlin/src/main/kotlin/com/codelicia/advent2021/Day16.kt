@@ -4,6 +4,9 @@ import java.util.*
 import kotlin.math.min
 
 class Day16(val input: String) {
+
+    private fun String.decodeBinary(): Int = this.toByte(2).toInt()
+
     // @TODO("Can I get rid of this table")
     private val lookUp: Map<Char, String> = mutableMapOf(
        '0' to "0000",
@@ -25,7 +28,7 @@ class Day16(val input: String) {
     )
 
     data class Packet(
-        val version: String,
+        val version: Int,
         val typeID: Int,
         val groups: String,
         val lastBits: String
@@ -41,7 +44,14 @@ class Day16(val input: String) {
             return@filterIndexed true
         }
 
-        println("1110".toByte(2))
+        val p = Packet(
+            bitsStreaming.take(3).decodeBinary(),
+            bitsStreaming.take(6).takeLast(3).decodeBinary(),
+            bitsStreaming.takeLast(bitsStreaming.length - 6),
+            bitsStreaming.take(3),
+        )
+
+        println(p)
 
 
         return 2022
