@@ -2,7 +2,7 @@
     "name": "codelicia/aoc2021",
     "type": "project",
     "require-dev": {
-        "phpunit/phpunit": "10.2.x-dev"
+        "phpunit/phpunit": "10.3.x"
     },
     "license": "MIT",
     "autoload": {
