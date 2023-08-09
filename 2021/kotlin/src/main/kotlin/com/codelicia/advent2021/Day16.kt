@@ -51,9 +51,24 @@ class Day16(val input: String) {
             bitsStreaming.take(3),
         )
 
-        println(p)
+//        println(p)
+//        println(p.groups)
 
+        var binaryString = ""
+        var lastGroup = false
+        var skipAll = false
+        p.groups.forEachIndexed { i, c ->
+            if (i == 0 || i % 5 == 0) {
+                if (lastGroup) skipAll = true
+                if (c == '0') lastGroup = true
+                return@forEachIndexed
+            }
 
-        return 2022
+            if (skipAll) return@forEachIndexed
+            binaryString += c
+        }
+//        println(binaryString)
+
+        return binaryString.toInt(2)
     }
 }
