@@ -18,7 +18,6 @@ class Day08(private val signals: List<String>) {
                 // Hacky ones
                 val sixDigits = segmentSplit.filter { it.length == 6 }
                 val fiveDigits = segmentSplit.filter { it.length == 5 }
-                
 
                 // Easy discoverable
                 val one = segmentSplit.first { it.length == 2 }
