@@ -9,7 +9,9 @@ class Day16Test {
     @Theory
     fun part1() {
         assertEquals(2021, Day16("D2FE28").part1())
-        assertEquals(2021, Day16("38006F45291200").part1())
+        assertEquals(16, Day16("38006F45291200").part1())
+//        assertEquals(16, Day16("8A004A801A8002F478").part1())
+//        assertEquals(16, Day16("8A004A801A8002F478").part1())
     }
 
     companion object {
