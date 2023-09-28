@@ -45,7 +45,7 @@ class Day16(val input: String) {
                         typeID,
                         null,
                         5,
-                        10,
+                        ,
                         listOf(),
                         bitsStreaming.takeLast(bitsStreaming.length - 6)
                     )
