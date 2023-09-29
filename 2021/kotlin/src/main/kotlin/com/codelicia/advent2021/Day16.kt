@@ -10,9 +10,7 @@ class Day16(val input: String) {
     fun Iterator<Char>.next(size: Int): String =
         (1..size).map { next() }.joinToString("")
 
-    fun part1(): Pair<Long, Long> {
-        return getPacket(transmission)
-    }
+    fun part1(): Pair<Long, Long> = getPacket(transmission)
 
     // Version -> Count
     private fun getPacket(transmission: Iterator<Char>): Pair<Long, Long> {
